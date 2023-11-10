@@ -72,5 +72,5 @@ const createRegistration = async (req, res) => {
 
 
 module.exports = {
-    createRegistration,
+    createRegistration
 };

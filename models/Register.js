@@ -30,7 +30,6 @@ const registerSchema = new mongoose.Schema({
     },
     ifYes: {
         type: String,
-        enum: ["Yes", "No", "No recourse"],
         required: [true, "please fill the information"],
     },
     houseDemographic: {

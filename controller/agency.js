@@ -1,4 +1,4 @@
-const agency = require('../models/Agency');
+const Agency = require('../models/Agency');
 
 // @desc    register an agency
 // @route   POST /api/agency
@@ -24,11 +24,9 @@ const createAgency = async (req, res) => {
 
 
 const getAgencyById = async (req, res) => {
-    const { agencyId } = req.params;
-    const agency = await Agency.findById(agencyId);
+    const agency = await Agency.findById(req.params.id);
     if (!agency) {
-        res.status(404);
-        throw new Error('agency Not Found');
+        res.status(404).json('agency Not Found');
     }
     res.status(200).json(agency);
 };

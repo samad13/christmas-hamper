@@ -16,7 +16,6 @@ app.get("/", (req, res) => {
     res.status(200).send("Box of Hope");
 });
 
-
 mongoose.connect(process.env.MONGO_URI,)
     .then(() => {
         console.log('Connected to MongoDB');
@@ -24,6 +23,9 @@ mongoose.connect(process.env.MONGO_URI,)
     .catch((error) => {
         console.error('Error connecting to MongoDB:', error.message);
     });
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // agency routes
 app.use('/api', agencyRoutes);
