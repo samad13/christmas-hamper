@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require("dotenv");
 const agencyRoutes = require('./routes/agency');
+const registerRoutes = require('./routes/register');
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ mongoose.connect(process.env.MONGO_URI,)
 
 // agency routes
 app.use('/api', agencyRoutes);
+app.use('/api', registerRoutes);
 
 
 const PORT = process.env.PORT || 5000;
