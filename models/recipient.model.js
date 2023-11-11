@@ -1,15 +1,13 @@
-const agencySchema = require("../models/Agency");
-
 const mongoose = require("mongoose");
 
-const registerSchema = new mongoose.Schema({
-    firstname: {
+const recipientSchema = new mongoose.Schema({
+    firstName: {
         type: String,
-        required: [true, "please provide firstname"],
+        required: [true, "please provide First Name"],
     },
-    surname: {
+    lastName: {
         type: String,
-        required: [true, "please provide surname"],
+        required: [true, "please provide last Name"],
     },
     contactNumber: {
         type: Number,
@@ -25,14 +23,14 @@ const registerSchema = new mongoose.Schema({
     },
     benefit: {
         type: String,
-        enum: ["Yes", "No", "No recourse"],
+        enum: ["yes", "no", "no_recourse"],
         required: [true, "please click any of the box"],
     },
     ifYes: {
         type: String,
         required: [true, "please fill the information"],
     },
-    houseDemographic: {
+    houseDemography: {
         type: String,
         required: [true, "please provide house demographic"],
     },
@@ -40,9 +38,9 @@ const registerSchema = new mongoose.Schema({
         type: String,
         required: [true, "please provide your ethnicity"],
     },
-    Age: {
+    age: {
         type: String,
-        enum: ["18 - 24", "25 - 34", "35 - 44", "45 - 54", "55 - 64", "over 65"],
+        enum: ["18_24", "25_34", "35_44", "45_54", "55_64", "over_65"],
         required: [true, "please pick your age bracket"],
     },
     // Add the agency field that references the external Agency schema
@@ -52,6 +50,6 @@ const registerSchema = new mongoose.Schema({
     },
 });
 
-const Register = mongoose.model("Register", registerSchema);
+const Recipient = mongoose.model("Recipient", recipientSchema);
 
-module.exports = Register;
+module.exports = Recipient;

@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const agencySchema = new mongoose.Schema(
     {
-        referrersName: {
+        name: {
             type: String,
             required: [true, "please provide referrer's name"],
         },
-        referringOrganisation: {
+        organisation: {
             type: String,
             required: [true, "please provide referrering organiztion name"],
         },
@@ -14,7 +14,7 @@ const agencySchema = new mongoose.Schema(
             type: String,
             required: [true, "please provide your email"],
         },
-        referrerContactNumber: {
+        contact: {
             type: Number,
             required: [true, "please provide referrer contact number"],
         }

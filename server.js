@@ -1,42 +1,44 @@
-const express = require('express')
-const app = express();
-const mongoose = require('mongoose');
 const dotenv = require("dotenv");
-const agencyRoutes = require('./routes/agency');
-const registerRoutes = require('./routes/register');
-
 dotenv.config();
 
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const compression = require("compression");
 
+const agencyRoutes = require("./routes/agency.route");
+const recipientRoutes = require("./routes/recipient.route");
+const connectDB = require("./utils/dbConnect");
 
+const app = express();
+const PORT = process.env.PORT || 5000;
+connectDB();
 
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
-app.get("/", (req, res) => {
-
-    res.status(200).send("Box of Hope");
-});
-
-mongoose.connect(process.env.MONGO_URI,)
-    .then(() => {
-        console.log('Connected to MongoDB');
-    })
-    .catch((error) => {
-        console.error('Error connecting to MongoDB:', error.message);
-    });
+app.use(bodyParser.json());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(compression());
+
+app.get("/", (req, res) => {
+  res.status(200).send("Box of Hope");
+});
 
 // agency routes
-app.use('/api', agencyRoutes);
-app.use('/api', registerRoutes);
+app.use("/api/agencies", agencyRoutes);
+app.use("/api/recipients", recipientRoutes);
 
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(
-    PORT,
-    console.log(
-        `Server running on port ${PORT}`
-    )
-);
+//connect to server
+mongoose.connection.once("open", () => {
+  console.log("Connected to DB");
+  app.listen(PORT, () => console.log(`server running on port ${PORT}`));
+});
