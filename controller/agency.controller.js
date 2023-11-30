@@ -5,16 +5,21 @@ const Agency = require("../models/agency.model");
 // @access  Public
 
 const createAgency = async (req, res) => {
-  const { name, organisation, email, contact } = req.body;
+  const validatePayload = (data) => {
+    const schema = Joi.object({
+      name: Joi.string().required(),
+      organisation: Joi.string().required(),
+      email: Joi.string().required(),
+      contact: Joi.string().required(),
+    });
 
-  // Add validation
+    return schema.validate(data);
+  };
 
-  const agency = await Agency.create({
-    name,
-    organisation,
-    email,
-    contact,
-  });
+  const { error, value } = validatePayload(req.body);
+  if (error) return res.status(400).json({ message: error.message });
+
+  const agency = await Agency.create(...value);
 
   res.status(201).json({
     message: "Agency created successfully",
