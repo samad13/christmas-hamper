@@ -20,7 +20,7 @@ const createAgency = async (req, res) => {
   const { error, value } = validatePayload(req.body);
   if (error) return res.status(400).json({ message: error.message });
 
-  const agency = await Agency.create(...value);
+  const agency = await Agency.create({...value});
 
   res.status(201).json({
     message: "Agency created successfully",
