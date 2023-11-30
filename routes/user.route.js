@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const recipientController = require('../controller/recipient.controller');
+const userController = require('../controller/user.controller');
 
 // Route for creating a new agency
-router.post('/', recipientController.createRecipient);
+router.post('/', userController.createUser);
 
 module.exports = router;
 
