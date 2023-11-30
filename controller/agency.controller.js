@@ -1,4 +1,5 @@
 const Agency = require("../models/agency.model");
+const Joi = require("joi");
 
 // @desc    register an agency
 // @route   POST /api/agency
