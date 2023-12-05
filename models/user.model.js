@@ -25,6 +25,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: [true, "please click any of the box"],
   },
+  consent: {
+    type: Boolean,
+    required: [true, "please click any of the box"],
+  },
+  available: {
+    type: Boolean,
+    required: [true, "please click any of the box"],
+  },
   benefits: {
     type: [String],
     required: function () {
