@@ -12,6 +12,7 @@ const createUser = async (req, res) => {
     const schema = Joi.object({
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
+      email: Joi.string().required(),
       contactNumber: Joi.string().required(),
       address: Joi.string().required(),
       postcode: Joi.string().required(),
@@ -52,6 +53,7 @@ const createUser = async (req, res) => {
     await sheet.addRow({
       firstName: value.firstName,
       lastName: value.lastName,
+      email: value.email,
       contactNumber: value.contactNumber,
       address: value.address,
       postcode: value.postcode,
