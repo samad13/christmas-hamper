@@ -84,6 +84,15 @@ const createUser = async (req, res) => {
   });
 };
 
+const getAllUser = async (req, res) => {
+  const users = await User.find().populate("agency");
+
+  res.status(200).json({
+    users,
+  });
+};
+
 module.exports = {
   createUser,
+  getAllUser,
 };
