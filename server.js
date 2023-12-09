@@ -8,7 +8,7 @@ const cors = require("cors");
 const compression = require("compression");
 
 const agencyRoutes = require("./routes/agency.route");
-const recipientRoutes = require("./routes/recipient.route");
+const userRoutes = require("./routes/user.route");
 const connectDB = require("./utils/dbConnect");
 
 const app = express();
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 
 // agency routes
 app.use("/api/agencies", agencyRoutes);
-app.use("/api/recipients", recipientRoutes);
+app.use("/api/users", userRoutes);
 
 //connect to server
 mongoose.connection.once("open", () => {
