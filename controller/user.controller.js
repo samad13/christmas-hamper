@@ -62,7 +62,7 @@ const createUser = async (req, res) => {
       houseDemography: value.houseDemography,
       ethnicity: value.ethnicity,
       age: value.age,
-      agency: agency.name,
+      agency: agency?.name,
       timeOfCollection: value.timeOfCollection,
     });
   } catch (error) {
