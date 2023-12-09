@@ -5,6 +5,7 @@ const createRecipient = async (req, res) => {
   const {
     firstName,
     lastName,
+    email,
     contactNumber,
     address,
     postcode,
@@ -20,7 +21,7 @@ const createRecipient = async (req, res) => {
 
   // Validate all enums are provided correctly, else, throw a bad request error.
 
-  // If there is agencyId, ensure it is a mongoose Id.
+  // If there is agencyId, ensure it is a mongoose Id. //my note, try is validated
 
   if (agencyId) {
     const isAgencyExists = await Agency.exists({ _id: agencyId });
@@ -32,6 +33,7 @@ const createRecipient = async (req, res) => {
   const recipient = new Recipient({
     firstName,
     lastName,
+    email,
     contactNumber,
     address,
     postcode,
