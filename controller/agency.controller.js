@@ -30,7 +30,7 @@ const createAgency = async (req, res) => {
   try {
     await doc.useServiceAccountAuth(creds);
     await doc.getInfo();
-    const sheet = doc.sheetsByTitle["agencies"];
+    const sheet = doc.sheetsByTitle["agencies-filtered"];
     await sheet.addRow({
       name: value.name,
       organisation: value.organisation,
@@ -61,6 +61,42 @@ const getAgencyById = async (req, res) => {
 
 const getAllAgencies = async (req, res) => {
   const agencies = await Agency.find();
+
+  // const uniqueContacts = new Set();
+  // const uniqueEmails = new Set();
+
+  // const rows = agencies
+  //   .filter((agent) => {
+  //     const lowercaseEmail = agent.email?.toLowerCase();
+  //     if (
+  //       !lowercaseEmail ||
+  //       uniqueEmails.has(lowercaseEmail) ||
+  //       uniqueContacts.has(agent.contact)
+  //     ) {
+  //       return false; // Skip if email is empty, email already encountered, or contact number already encountered
+  //     }
+  //     uniqueEmails.add(lowercaseEmail);
+  //     uniqueContacts.add(agent.contact);
+  //     return true;
+  //   })
+  //   .map((agent) => ({
+  //     name: agent.name,
+  //     organisation: agent.organisation,
+  //     email: agent.email,
+  //     contact: agent.contact,
+  //   }));
+
+  // const spreadSheetId = process.env.SPREADSHEET_ID;
+  // const doc = new GoogleSpreadsheet(spreadSheetId);
+
+  // try {
+  //   await doc.useServiceAccountAuth(creds);
+  //   await doc.getInfo();
+  //   const sheet = doc.sheetsByTitle["agencies-filtered"];
+  //   await sheet.addRows(rows);
+  // } catch (error) {
+  //   return res.status(500).json({ error: error.message });
+  // }
 
   // let num;
   // const rows = agencies

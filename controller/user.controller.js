@@ -49,7 +49,7 @@ const createUser = async (req, res) => {
   try {
     await doc.useServiceAccountAuth(creds);
     await doc.getInfo();
-    const sheet = doc.sheetsByTitle["users"];
+    const sheet = doc.sheetsByTitle["single-filtered"];
     await sheet.addRow({
       firstName: value.firstName,
       lastName: value.lastName,
@@ -59,7 +59,7 @@ const createUser = async (req, res) => {
       postcode: value.postcode,
       benefit: value.benefit ? "YES" : "NO",
       available: value.available ? "YES" : "NO",
-      consent: !value.agencyId ? " " : value.benefit ? "YES" : "NO",
+      consent: !value.agencyId ? " " : value.consent ? "YES" : "NO",
       benefits: value.benefits.join(","),
       houseDemography: value.houseDemography,
       ethnicity: value.ethnicity,
@@ -88,6 +88,81 @@ const createUser = async (req, res) => {
 
 const getAllUser = async (req, res) => {
   const users = await User.find().populate("agency");
+
+  //   let num;
+  //   let email;
+  // const rows = users
+  //   .map((user) => {
+  //     if (num === user.contactNumber) return null;
+  //     if(email?.toLowerCase() == user.email?.toLowerCase()) return null;
+  //     num = user.contactNumber;
+  //     email = user.email
+  //     console.log(user.email);
+  //     return {
+  //       firstName: user.firstName,
+  //       lastName: user.lastName,
+  //       email: user.email,
+  //       contactNumber: user.contactNumber,
+  //       address: user.address,
+  //       postcode: user.postcode,
+  //       benefit: user.benefit ? "YES" : "NO",
+  //       available: user.available ? "YES" : "NO",
+  //       consent: !user.agencyId ? " " : user.benefit ? "YES" : "NO",
+  //       benefits: user.benefits.join(","),
+  //       houseDemography: user.houseDemography,
+  //       ethnicity: user.ethnicity,
+  //       age: user.age,
+  //       agency: user.agency?.name,
+  //       timeOfCollection: user.timeOfCollection,
+  //     };
+  //   })
+  //   .filter((item) => item !== null);
+
+  // const uniqueContacts = new Set();
+  // const uniqueEmails = new Set();
+  // const rows = users
+  //   .filter((user) => {
+  //     const lowercaseEmail = user.email?.toLowerCase();
+  //     if (
+  //       !lowercaseEmail ||
+  //       uniqueEmails.has(lowercaseEmail) ||
+  //       uniqueContacts.has(user.contactNumber)
+  //     ) {
+  //       return false; // Skip if email is empty, email already encountered, or contact number already encountered
+  //     }
+  //     uniqueEmails.add(lowercaseEmail);
+  //     uniqueContacts.add(user.contactNumber);
+  //     return true;
+  //   })
+  //   .map((user) => ({
+  //     firstName: user.firstName,
+  //     lastName: user.lastName,
+  //     email: user.email,
+  //     contactNumber: user.contactNumber,
+  //     address: user.address,
+  //     postcode: user.postcode,
+  //     benefit: user.benefit ? "YES" : "NO",
+  //     available: user.available ? "YES" : "NO",
+  //     consent: !user.agency ? "" : user.consent ? "YES" : "NO",
+  //     benefits: user.benefits.join(","),
+  //     houseDemography: user.houseDemography,
+  //     ethnicity: user.ethnicity,
+  //     age: user.age,
+  //     agency: user.agency?.name,
+  //     timeOfCollection: user.timeOfCollection,
+  //   }));
+
+  // const spreadSheetId = process.env.SPREADSHEET_ID;
+  // const doc = new GoogleSpreadsheet(spreadSheetId);
+
+  // try {
+  //   await doc.useServiceAccountAuth(creds);
+  //   await doc.getInfo();
+  //   const sheet = doc.sheetsByTitle["single-filtered"];
+  //   await sheet.addRows(rows);
+  // } catch (error) {
+  //   return res.status(500).json({ error: error.message });
+  // }
 
   res.status(200).json({
     users,
